@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\ColorChooser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,6 +42,26 @@ class CacheController extends AbstractController
     }
 
     /**
+     * @Route("/validation", name="validation")
+     */
+    public function validation(Request $request): Response
+    {
+        $response = new Response();
+        $response->setPublic();
+        $response->setEtag($this->fetchEtag());
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
+        return $this->render(
+            'cache.html.twig',
+            ['color' => $this->colorChooser->random()],
+            $response
+        );
+    }
+
+    /**
      * @Route("/no-esi", name="no_esi")
      */
     public function noEsi(): Response
@@ -54,5 +75,10 @@ class CacheController extends AbstractController
     public function esi(): Response
     {
         return $this->render('fragments.html.twig', ['esi' => true]);
+    }
+
+    private function fetchEtag(): string
+    {
+        return md5((string) intdiv(time(), 5));
     }
 }
