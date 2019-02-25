@@ -4,9 +4,9 @@
     {% for i in 0..2 %}
         <div style="border: 1px solid">
             {% if esi %}
-                {{ render_esi(url('no_cache')) }}
+                {{ render_esi(url('expiration')) }}
             {% else %}
-                {{ render(url('no_cache')) }}
+                {{ render(url('expiration')) }}
             {% endif %}
         </div>
     {% endfor %}
