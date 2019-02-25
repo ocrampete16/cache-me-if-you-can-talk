@@ -1,8 +1,17 @@
 <?php
 
+$finder = PhpCsFixer\Finder::create()
+    ->exclude('var')
+    ->in(__DIR__);
+
 return PhpCsFixer\Config::create()
     ->setRules([
+        '@PHP71Migration' => true,
+        '@PHP71Migration:risky' => true,
+        '@PHPUnit60Migration:risky' => true,
         '@Symfony' => true,
+        '@Symfony:risky' => true,
         'array_syntax' => ['syntax' => 'short'],
     ])
-;
+    ->setRiskyAllowed(true)
+    ->setFinder($finder);
