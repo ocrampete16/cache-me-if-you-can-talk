@@ -10,6 +10,6 @@ final class ColorChooser
     {
         sleep(1);
 
-        return '#'.dechex(random_int(0, 16 ** 6 - 1));
+        return sprintf('#%06s', dechex(random_int(0, 16 ** 6 - 1)));
     }
 }
