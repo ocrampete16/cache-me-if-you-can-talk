@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\ExpensiveCalculationService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +23,17 @@ class CacheController extends AbstractController
      * @Route("/no-cache", name="no_cache")
      */
     public function noCache(): Response
+    {
+        $this->expensiveCalculationService->calculate();
+
+        return $this->render('cache.html.twig');
+    }
+
+    /**
+     * @Route("/expiration", name="expiration")
+     * @Cache(smaxage=5)
+     */
+    public function expiration(): Response
     {
         $this->expensiveCalculationService->calculate();
 
