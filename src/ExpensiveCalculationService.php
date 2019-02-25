@@ -6,7 +6,7 @@ namespace App;
 
 final class ExpensiveCalculationService
 {
-    public function calculate(string $question): int
+    public function calculate(): int
     {
         sleep(1);
         return 42;
