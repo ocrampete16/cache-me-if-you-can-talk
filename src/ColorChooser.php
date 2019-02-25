@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
-final class ExpensiveCalculationService
+final class ColorChooser
 {
-    public function calculate(): string
+    public function random(): string
     {
         sleep(1);
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\ExpensiveCalculationService;
+use App\ColorChooser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ class CacheController extends AbstractController
 {
     private $expensiveCalculationService;
 
-    public function __construct(ExpensiveCalculationService $expensiveCalculationService)
+    public function __construct(ColorChooser $expensiveCalculationService)
     {
         $this->expensiveCalculationService = $expensiveCalculationService;
     }
@@ -25,7 +25,7 @@ class CacheController extends AbstractController
     public function noCache(): Response
     {
         return $this->render('cache.html.twig', [
-            'color' => $this->expensiveCalculationService->calculate(),
+            'color' => $this->expensiveCalculationService->random(),
         ]);
     }
 
@@ -36,7 +36,7 @@ class CacheController extends AbstractController
     public function expiration(): Response
     {
         return $this->render('cache.html.twig', [
-            'color' => $this->expensiveCalculationService->calculate(),
+            'color' => $this->expensiveCalculationService->random(),
         ]);
     }
 
