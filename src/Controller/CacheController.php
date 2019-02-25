@@ -23,9 +23,7 @@ class CacheController extends AbstractController
      */
     public function noCache(): Response
     {
-        for ($i = 0; $i < 3; ++$i) {
-            $this->expensiveCalculationService->calculate();
-        }
+        $this->expensiveCalculationService->calculate();
 
         return $this->render('cache.html.twig');
     }

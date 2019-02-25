@@ -8,7 +8,7 @@ final class ExpensiveCalculationService
 {
     public function calculate(): int
     {
-        sleep(1);
+        sleep(3);
 
         return 42;
     }
