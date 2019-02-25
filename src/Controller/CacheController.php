@@ -2,18 +2,29 @@
 
 namespace App\Controller;
 
+use App\ExpensiveCalculationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CacheController extends AbstractController
 {
-    /**
-     * @Route("/victorious/pizza", name="victorious_pizza")
-     */
-    public function index()
+    private $expensiveCalculationService;
+
+    public function __construct(ExpensiveCalculationService $expensiveCalculationService)
     {
-        return $this->render('victorious_pizza/index.html.twig', [
-            'controller_name' => 'VictoriousPizzaController',
-        ]);
+        $this->expensiveCalculationService = $expensiveCalculationService;
+    }
+
+    /**
+     * @Route("/no-cache", name="no_cache")
+     */
+    public function noCache(): Response
+    {
+        for ($i = 0; $i < 3; ++$i) {
+            $this->expensiveCalculationService->calculate();
+        }
+
+        return $this->render('cache.html.twig');
     }
 }
