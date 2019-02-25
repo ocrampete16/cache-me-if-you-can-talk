@@ -6,10 +6,10 @@ namespace App;
 
 final class ExpensiveCalculationService
 {
-    public function calculate(): int
+    public function calculate(): string
     {
         sleep(1);
 
-        return 42;
+        return '#'.dechex(random_int(0, 16 ** 6 - 1));
     }
 }

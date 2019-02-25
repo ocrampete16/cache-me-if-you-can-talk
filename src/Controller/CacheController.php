@@ -24,9 +24,9 @@ class CacheController extends AbstractController
      */
     public function noCache(): Response
     {
-        $this->expensiveCalculationService->calculate();
-
-        return $this->render('cache.html.twig');
+        return $this->render('cache.html.twig', [
+            'color' => $this->expensiveCalculationService->calculate(),
+        ]);
     }
 
     /**
@@ -35,9 +35,9 @@ class CacheController extends AbstractController
      */
     public function expiration(): Response
     {
-        $this->expensiveCalculationService->calculate();
-
-        return $this->render('cache.html.twig');
+        return $this->render('cache.html.twig', [
+            'color' => $this->expensiveCalculationService->calculate(),
+        ]);
     }
 
     /**
