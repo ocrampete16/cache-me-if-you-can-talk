@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class VictoriousPizzaController extends AbstractController
+class CacheController extends AbstractController
 {
     /**
      * @Route("/victorious/pizza", name="victorious_pizza")
