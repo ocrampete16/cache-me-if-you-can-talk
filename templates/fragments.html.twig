@@ -2,7 +2,7 @@
 
 {% block body %}
     {% for i in 0..2 %}
-        <div style="border: 1px solid">
+        <div style="border: 1px solid; margin-bottom: 5px">
             {% if esi %}
                 {{ render_esi(url('expiration')) }}
             {% else %}
