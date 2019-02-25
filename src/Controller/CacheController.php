@@ -27,4 +27,20 @@ class CacheController extends AbstractController
 
         return $this->render('cache.html.twig');
     }
+
+    /**
+     * @Route("/no-esi", name="no_esi")
+     */
+    public function noEsi(): Response
+    {
+        return $this->render('fragments.html.twig', ['esi' => false]);
+    }
+
+    /**
+     * @Route("/esi", name="esi")
+     */
+    public function esi(): Response
+    {
+        return $this->render('fragments.html.twig', ['esi' => true]);
+    }
 }

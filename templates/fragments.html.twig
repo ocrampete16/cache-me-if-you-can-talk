@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for i in 0..2 %}
+        <div style="border: 1px solid">
+            {% if esi %}
+                {{ render_esi(url('no_cache')) }}
+            {% else %}
+                {{ render(url('no_cache')) }}
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
