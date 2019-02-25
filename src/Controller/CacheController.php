@@ -12,11 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CacheController extends AbstractController
 {
-    private $expensiveCalculationService;
+    private $colorChooser;
 
-    public function __construct(ColorChooser $expensiveCalculationService)
+    public function __construct(ColorChooser $colorChooser)
     {
-        $this->expensiveCalculationService = $expensiveCalculationService;
+        $this->colorChooser = $colorChooser;
     }
 
     /**
@@ -25,7 +25,7 @@ class CacheController extends AbstractController
     public function noCache(): Response
     {
         return $this->render('cache.html.twig', [
-            'color' => $this->expensiveCalculationService->random(),
+            'color' => $this->colorChooser->random(),
         ]);
     }
 
@@ -36,7 +36,7 @@ class CacheController extends AbstractController
     public function expiration(): Response
     {
         return $this->render('cache.html.twig', [
-            'color' => $this->expensiveCalculationService->random(),
+            'color' => $this->colorChooser->random(),
         ]);
     }
 
