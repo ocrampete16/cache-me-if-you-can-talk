@@ -47,7 +47,6 @@ class CacheController extends AbstractController
     public function validation(Request $request): Response
     {
         $response = new Response();
-        $response->setPublic();
         $response->setEtag($this->fetchEtag());
 
         if ($response->isNotModified($request)) {
