@@ -23,8 +23,10 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? $_ENV['TRUSTED_HOSTS'] ?? false
     Request::setTrustedHosts([$trustedHosts]);
 }
 
-$kernel = new HttpCache(new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']));
+$kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
+$kernel = new HttpCache($kernel);
 $request = Request::createFromGlobals();
+// $request->headers->set('Surrogate-Capability', 'abc=ESI/1.0');
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);
