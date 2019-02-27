@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\ColorChooser;
+use Psr\SimpleCache\CacheInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,16 +39,23 @@ class CacheController extends AbstractController
     {
         return $this->render('cache.html.twig', [
             'color' => $this->colorChooser->random(),
+            'valdation' => false,
         ]);
     }
 
     /**
      * @Route("/validation", name="validation")
      */
-    public function validation(Request $request): Response
+    public function validation(Request $request, CacheInterface $cache): Response
     {
+        if ($request->isMethod(Request::METHOD_POST)) {
+            $cache->set('etag', uniqid());
+
+            return $this->redirectToRoute('validation');
+        }
+
         $response = new Response();
-        $response->setEtag($this->fetchEtag());
+        $response->setEtag($cache->get('etag'));
 
         if ($response->isNotModified($request)) {
             return $response;
@@ -55,7 +63,7 @@ class CacheController extends AbstractController
 
         return $this->render(
             'cache.html.twig',
-            ['color' => $this->colorChooser->random()],
+            ['color' => $this->colorChooser->random(), 'validation' => true],
             $response
         );
     }
@@ -74,10 +82,5 @@ class CacheController extends AbstractController
     public function esi(): Response
     {
         return $this->render('fragments.html.twig', ['esi' => true]);
-    }
-
-    private function fetchEtag(): string
-    {
-        return md5((string) intdiv(time(), 5));
     }
 }
