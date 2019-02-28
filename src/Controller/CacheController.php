@@ -28,6 +28,7 @@ class CacheController extends AbstractController
     {
         return $this->render('cache.html.twig', [
             'color' => $this->colorChooser->random(),
+            'validation' => false,
         ]);
     }
 
@@ -39,7 +40,7 @@ class CacheController extends AbstractController
     {
         return $this->render('cache.html.twig', [
             'color' => $this->colorChooser->random(),
-            'valdation' => false,
+            'validation' => false,
         ]);
     }
 
